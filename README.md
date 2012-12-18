@@ -1,5 +1,7 @@
 # HttpRequest Class for mruby
-HttpRequest of iij/mruby support mruby/mruby using mruby-uv and mruby-http
+refactored HttpRequest using mruby-uv and mruby-http
+
+original code is iij/mruby
 
 ## install by mrbgems
 ```bash
