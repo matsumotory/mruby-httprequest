@@ -48,7 +48,7 @@ class HttpRequest
   def create_http_request(method, body, headers)
     method = method.upcase.to_s
     request = {}
-    request['User-Agent'] = "ua"
+    request = headers
     if method == "POST" || method == "PUT"
       request["body"] = body.is_a?(Hash) ? encode_parameters(body) : body.to_s
       request["Content-Type"] = 'application/x-www-form-urlencoded'
