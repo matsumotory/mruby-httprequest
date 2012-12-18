@@ -15,6 +15,8 @@ class GrowthForecast
         :number => data[:number],
         :color  => data[:color],
         :mode   => data[:mode],
+      },{
+        'User-Agent' => "mruby-growthforecast",
       })
     end
   end
