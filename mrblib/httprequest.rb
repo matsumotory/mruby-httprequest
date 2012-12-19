@@ -30,7 +30,6 @@ class HttpRequest
     else
         request_uri = url.path
     end
-    p method, request_uri, request
     SimpleHttp.new(host, url.port).request(method, request_uri, request)
   end
 
