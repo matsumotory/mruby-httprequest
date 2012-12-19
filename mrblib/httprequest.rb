@@ -1,7 +1,7 @@
 class HttpRequest
 
-  def get(url, headers = {})
-    request("GET", url, nil, headers)
+  def get(url, body = nil, headers = {})
+    request("GET", url, body, headers)
   end
 
   def head(url, headers = {})
@@ -49,9 +49,11 @@ class HttpRequest
     method = method.upcase.to_s
     request = {}
     request = headers
-    if method == "POST" || method == "PUT"
+    if method == "POST" || method == "PUT" || method == "GET"
       request["body"] = body.is_a?(Hash) ? encode_parameters(body) : body.to_s
-      request["Content-Type"] = 'application/x-www-form-urlencoded'
+      unless request["Content-Type"]
+        request["Content-Type"] = 'application/x-www-form-urlencoded'
+      end
       request["Content-Length"] = (request["body"] || '').length
     end
     request
