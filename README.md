@@ -41,3 +41,8 @@ class GrowthForecast
 end
 ```
 
+# License
+under the MIT License:
+
+* http://www.opensource.org/licenses/mit-license.php
+
