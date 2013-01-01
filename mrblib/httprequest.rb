@@ -49,11 +49,13 @@ class HttpRequest
     request = {}
     request = headers
     if method == "POST" || method == "PUT" || method == "GET"
-      request["body"] = body.is_a?(Hash) ? encode_parameters(body) : body.to_s
-      unless request["Content-Type"]
-        request["Content-Type"] = 'application/x-www-form-urlencoded'
+      #if request["Content-Type"]
+      #  request["Content-Type"] = 'application/x-www-form-urlencoded'
+      #end
+      if body
+        request["body"] = body.is_a?(Hash) ? encode_parameters(body) : body.to_s
+        request["Content-Length"] = (request["body"] || '').length
       end
-      request["Content-Length"] = (request["body"] || '').length
     end
     request
   end
