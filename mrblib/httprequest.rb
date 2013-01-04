@@ -39,7 +39,7 @@ class HttpRequest
         sprintf("%s=%s%s%s", key, quote, value, quote)
       end
     else
-      params = params.map { |value| escape(value) }
+      #params = params.map { |value| escape(value) }
     end
     delimiter ? params.join(delimiter) : params
   end
