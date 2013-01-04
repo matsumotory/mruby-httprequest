@@ -36,7 +36,7 @@ class HttpRequest
   def encode_parameters(params, delimiter = '&', quote = nil)
     if params.is_a?(Hash)
       params = params.map do |key, value|
-        sprintf("%s=%s%s%s", key, quote, value, quote)
+        sprintf("%s=%s%s%s", escape(key), quote, escape(value), quote)
       end
     else
       #params = params.map { |value| escape(value) }
@@ -49,12 +49,35 @@ class HttpRequest
     request = {}
     request = headers
     if method == "POST" || method == "PUT" || method == "GET"
-      request["body"] = body.is_a?(Hash) ? encode_parameters(body) : body.to_s
-      unless request["Content-Type"]
-        request["Content-Type"] = 'application/x-www-form-urlencoded'
+      #if request["Content-Type"]
+      #  request["Content-Type"] = 'application/x-www-form-urlencoded'
+      #end
+      if body
+        request["body"] = body.is_a?(Hash) ? encode_parameters(body) : body.to_s
+        request["Content-Length"] = (request["body"] || '').length
       end
-      request["Content-Length"] = (request["body"] || '').length
     end
     request
+  end
+  #def escape(str, unsafe = nil)
+  def escape(str)
+    reserved_str = [
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "n", "m", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", 
+      "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+      "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+      "-", ".", "_", "~"
+    ]
+    tmp = ''
+    str = str.to_s
+    str.size.times do |idx|
+      chr = str[idx]
+      if reserved_str.include?(chr)
+        tmp += chr
+      else
+        tmp += "%" + chr.unpack("H*").first.upcase
+      end
+    end
+    #puts "#{str}: #{tmp}"
+    tmp
   end
 end
