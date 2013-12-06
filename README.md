@@ -1,16 +1,17 @@
 # HttpRequest Class for mruby
-refactored HttpRequest using mruby-uv and mruby-http
+refactored HttpRequest using mruby-simplehttp and mruby-http
 
 original code is iij/mruby
 
 ## install by mrbgems
-```bash
-git clone git://github.com/matsumoto-r/mruby-httprequest.git
-cp -pr mruby-httprequest ${MRUBY_ROOT}/mrbgems/g/.
-echo mruby-httprequest >> ${MRUBY_ROOT}/mrbgems/GEMS.active
-cd ${MRUBY_ROOT}
-make
-./bin/mruby ${MRUBY_ROOT}/mrbgems/g/mruby-httprequest/example/hogehoge.rb
+ - add conf.gem line to `build_config.rb`
+```ruby
+MRuby::Build.new do |conf|
+
+    # ... (snip) ...
+
+    conf.gem :git => 'https://github.com/matsumoto-r/mruby-httprequest.git'
+end
 ```
 
 ## example
