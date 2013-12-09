@@ -30,7 +30,7 @@ class HttpRequest
     else
         request_uri = url.path
     end
-    SimpleHttp.new(host, url.port).request(method, request_uri, request)
+    SimpleHttp.new(url.schema, host, url.port).request(method, request_uri, request)
   end
 
   def encode_parameters(params, delimiter = '&', quote = nil)
