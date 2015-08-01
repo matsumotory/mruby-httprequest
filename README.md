@@ -10,7 +10,7 @@ MRuby::Build.new do |conf|
 
     # ... (snip) ...
 
-    conf.gem :git => 'https://github.com/matsumoto-r/mruby-httprequest.git'
+    conf.gem :mgem => 'mruby-httprequest'
 end
 ```
 
@@ -22,8 +22,8 @@ class GrowthForecast
   DEFAULTPORT     = 5125
   class Client
     def initialize(address, port)
-      adress = DEFAULTADDRESS if adress.nil?
-      port   = DEFAULTAPORT if adress.nil?
+      address = DEFAULTADDRESS if address.nil?
+      port   = DEFAULTAPORT if address.nil?
       @url = sprintf("http://%s:%s/api", address, port.to_s)
     end
 
