@@ -4,4 +4,5 @@ MRuby::Gem::Specification.new('mruby-httprequest') do |spec|
   spec.version = '0.0.1'
   spec.add_dependency('mruby-simplehttp')
   spec.add_dependency('mruby-http')
+  spec.add_dependency('mruby-polarssl')
 end
