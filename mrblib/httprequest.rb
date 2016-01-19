@@ -1,26 +1,26 @@
 class HttpRequest
 
-  def get(url, body = nil, headers = {})
-    request("GET", url, body, headers)
+  def get(url, body = nil, headers = {}, &b)
+    request("GET", url, body, headers, &b)
   end
 
-  def head(url, headers = {})
-    request("HEAD", url, nil, headers)
+  def head(url, headers = {}, &b)
+    request("HEAD", url, nil, headers, &b)
   end
 
-  def post(url, body = nil, headers = {})
-    request("POST", url, body, headers)
+  def post(url, body = nil, headers = {}, &b)
+    request("POST", url, body, headers, &b)
   end
 
-  def put(url, body = nil, headers = {})
-    request("PUT", url, body, headers)
+  def put(url, body = nil, headers = {}, &b)
+    request("PUT", url, body, headers, &b)
   end
 
-  def delete(url, headers = {})
-    request("DELETE", url, nil, headers)
+  def delete(url, headers = {}, &b)
+    request("DELETE", url, nil, headers, &b)
   end
 
-  def request(method, url, body, headers)
+  def request(method, url, body, headers, &b)
     parser = HTTP::Parser.new()
     url = parser.parse_url(url)
     request = create_http_request(method, body, headers)
@@ -30,7 +30,7 @@ class HttpRequest
     else
         request_uri = url.path
     end
-    SimpleHttp.new(url.schema, host, url.port).request(method, request_uri, request)
+    SimpleHttp.new(url.schema, host, url.port).request(method, request_uri, request, &b)
   end
 
   def encode_parameters(params, delimiter = '&', quote = nil)
